@@ -93,7 +93,7 @@ The playbook cannot be unit tested. Its quality is checked through scenarios foc
 
 ## 9. Continuous integration
 
-On every pull request, CI runs typecheck, lint, format check, and all automated tests with the domain coverage threshold, and applies every migration to an empty database. A pull request can be merged only when CI passes.
+On every pull request, CI runs typecheck, lint, format check, and all automated tests with the domain coverage threshold, and applies every migration to an empty database. A pull request can be merged only when CI passes. While CI is unavailable, a local verification record replaces this requirement; see [DEVELOPMENT.md](DEVELOPMENT.md), section 4.
 
 ## 10. Failing and flaky tests
 

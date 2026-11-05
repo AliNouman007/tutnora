@@ -104,3 +104,4 @@ Deviations from provided content: <none, or what and why>
 - Branch from the latest `main` using a type prefix: `feat/`, `fix/`, `docs/`, `test/`, `refactor/`, or `chore/`.
 - Write Conventional Commit messages, for example `fix: reset revision streak after failed recall`.
 - Open a pull request. The owner reviews it and merges with squash.
+- While CI is unavailable, post a local verification record on the pull request before merge. See `docs/DEVELOPMENT.md`, section 4.
