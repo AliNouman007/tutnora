@@ -1,14 +1,58 @@
-## What and why
+<!--
+Write for the project owner, who may not read the code.
+Use plain language and explain technical terms the first time you use them.
+Keep every section. If one does not apply, write "N/A" and a short reason.
+Full rules: docs/DEVELOPMENT.md, section 4, "Pull request descriptions".
+-->
 
-<!-- What does this change do, and why is it needed? Link the batch or issue. -->
+## Summary (plain English)
 
-## How it was tested
+<!-- 2–4 simple sentences: what this pull request accomplishes. -->
 
-<!-- Exact commands run and their results. Do not report results that were not observed. -->
+## Why this change is needed
 
-## Documentation
+<!-- The problem it solves and why it matters for Tutnora. -->
 
-<!-- Which documents were updated, or why none were needed. -->
+## What changed
+
+<!-- Each important file or component and its purpose. Include documentation updated, or "none". -->
+
+## How it works
+
+<!-- The behaviour, step by step. -->
+
+## Real-world example
+
+<!-- A concrete, realistic example. Backend: inputs and outputs. UI: before and after. -->
+
+## Before vs. after
+
+<!-- What was possible before, and what is possible now. -->
+
+## User impact
+
+<!-- Can learners use this today? Label internal groundwork clearly. -->
+
+## Testing and verification
+
+<!-- Only results that were actually observed: commands, test counts, coverage when relevant.
+     Mark anything not yet run as "Not yet run". While CI is unavailable, link the local verification record. -->
+
+## Risks and limitations
+
+<!-- Known risks, open issues, and what is not implemented. -->
+
+## How to review this PR
+
+- [ ] <!-- What the owner should read or confirm -->
+
+## What's next
+
+<!-- Where this fits in the roadmap, dependencies, and what remains. -->
+
+## Screenshots or videos
+
+<!-- Real evidence for visual changes only. Otherwise: "N/A: no visual change." -->
 
 ## Review checklist
 

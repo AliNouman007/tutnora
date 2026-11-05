@@ -67,9 +67,47 @@ Use [Conventional Commits](https://www.conventionalcommits.org): `type: short im
 ### Pull requests
 
 - One purpose per pull request. Never combine a refactor, a behaviour change, and formatting.
-- The description states what changed, why, how it was tested (commands and results), and which docs were updated.
+- The description follows `.github/pull_request_template.md` and the rules in "Pull request descriptions" below.
 - CI must pass before merging. While CI is unavailable, post a local verification record instead (see below).
 - Merge with **squash** and delete the branch afterwards.
+
+### Pull request descriptions
+
+Every pull request description is written for the project owner, who may not read the code. A reader should understand what the pull request does, why, how it was verified, and what it means for learners without opening any file.
+
+**Required sections.** Use every section in the template, in order. If a section does not apply, write "N/A" and a short reason, for example "N/A: no visual change". Never delete a section.
+
+| Section | Must contain |
+|---|---|
+| Summary (plain English) | 2–4 simple sentences on what the pull request accomplishes |
+| Why this change is needed | The problem solved and why it matters for Tutnora |
+| What changed | Each important file or component and its purpose, including documentation updated or "none" |
+| How it works | The behaviour, step by step |
+| Real-world example | A concrete, realistic example: inputs and outputs for backend changes, before and after for UI changes |
+| Before vs. after | What was possible before, and what is possible now |
+| User impact | Whether learners can use this today; internal groundwork must be labelled as such |
+| Testing and verification | Commands that actually ran and their observed results, coverage when relevant, and limitations |
+| Risks and limitations | Known risks, open issues, and what is not implemented |
+| How to review this PR | A short checklist for the owner: what to read and what behaviour to confirm |
+| What's next | Where this fits in the roadmap, dependencies, and what remains |
+| Screenshots or videos | Real before-and-after evidence for visual changes; otherwise "N/A" |
+
+**Writing rules.**
+
+- Use plain language. Explain a technical term the first time you use it.
+- Match the length to the change. A documentation fix needs a sentence or two per section; a new feature needs more. Avoid boilerplate.
+- Stay technically accurate. Simple wording must not change the meaning.
+- Never claim a check passed unless it ran and its output was observed. Mark anything not yet run as "Not yet run".
+- Never invent screenshots, recordings, examples presented as real results, or test output.
+
+**Who writes it.**
+
+- The authoring agent drafts the full description for every batch, as a file.
+- The implementation agent replaces only the clearly marked result placeholders with observed results, and changes nothing else.
+- Create pull requests with `gh pr create --body-file <file>` and update them with `gh pr edit <number> --body-file <file>`. Keep description files outside the repository.
+- Agents may use their own pull-request writing tools or skills, but the result must follow this template. The repository must never depend on a contributor's personal tools.
+
+**Readiness.** A pull request with a missing, unclear, or unverified description is not ready for review, and the owner may decline to review it until it is fixed.
 
 ### Verification while CI is unavailable
 
