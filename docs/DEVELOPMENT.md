@@ -68,8 +68,37 @@ Use [Conventional Commits](https://www.conventionalcommits.org): `type: short im
 
 - One purpose per pull request. Never combine a refactor, a behaviour change, and formatting.
 - The description states what changed, why, how it was tested (commands and results), and which docs were updated.
-- CI must pass before merging.
+- CI must pass before merging. While CI is unavailable, post a local verification record instead (see below).
 - Merge with **squash** and delete the branch afterwards.
+
+### Verification while CI is unavailable
+
+GitHub Actions cannot currently run on this repository's account. This is tracked in a GitHub issue labelled `tech-debt`. Until CI runs again, every pull request needs a **local verification record** before merging:
+
+1. On the pull request's exact head commit, run:
+
+   ```bash
+   npx -y npm@11 ci
+   npm run check
+   npm audit --omit=dev
+   ```
+
+2. Post the results as a pull request comment, using this template:
+
+   ```markdown
+   ## Local verification record (CI unavailable)
+
+   - Commit: <full SHA>
+   - Environment: Node <version>, npm <version>
+   - Clean install: <result>
+   - npm run check: <result, including test counts>
+   - npm audit --omit=dev: <result>
+   - Notes: <anything unexpected, or "None">
+   ```
+
+3. The owner merges only after the record has been posted and reviewed.
+
+When CI runs again, this section is removed and `check` becomes a required status check on `main`.
 
 ## 5. Coding conventions
 
