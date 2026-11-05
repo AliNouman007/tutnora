@@ -1,0 +1,176 @@
+# Development Guide
+
+How to set up, plan, write, review, and ship changes to Tutnora. Architecture rules are in [ARCHITECTURE.md](ARCHITECTURE.md). Testing rules are in [TESTING.md](TESTING.md).
+
+> Project tooling (npm scripts, TypeScript, lint, and tests) is introduced in an upcoming batch. Commands in this guide become available then.
+
+## 1. Prerequisites
+
+- Node.js, using the version in `.nvmrc`
+- npm (included with Node.js)
+- Git
+- For staging or production work only: a Cloudflare account and a GitHub OAuth app
+
+## 2. Local setup
+
+```bash
+git clone https://github.com/AliNouman007/tutnora.git
+cd tutnora
+npm ci
+cp .dev.vars.example .dev.vars   # fill in local values; never commit this file
+npm run db:migrate:local
+npm run dev
+```
+
+Run `npm run check` once to confirm that the setup works.
+
+## 3. Roles and workflow
+
+| Role | Responsibility |
+|---|---|
+| Project owner | Scope, priorities, approval of major decisions and ADRs, merging |
+| Authoring agent | Designs and writes code, tests, migrations, and documentation |
+| Implementation agent | Applies files exactly, runs commands, and reports results |
+
+Every change follows this loop:
+
+1. **Plan.** State the goal, the files to change, the tests to add, and the docs to update. Major technical decisions need an approved ADR first (see [decisions/README.md](decisions/README.md)).
+2. **Author.** The authoring agent provides a batch: complete files, commands, expected results, and acceptance criteria. Work that has not been run is labelled "Not yet executed".
+3. **Apply and run.** The implementation agent applies the files exactly, on a branch, and runs the commands.
+4. **Report.** Results are reported in the batch report format in `AGENTS.md`, with full failure output and any deviations.
+5. **Fix.** The authoring agent analyses failures and provides corrected files. Repeat from step 3.
+6. **Review and merge.** A pull request is opened. The owner reviews it against section 6 and merges.
+
+Keep batches small: one purpose, reviewable in one sitting.
+
+## 4. Git and GitHub
+
+### Branches
+
+`main` is always deployable. Nobody pushes to it directly. Branch from the latest `main`, named by type:
+
+| Prefix | Use |
+|---|---|
+| `feat/` | New behaviour |
+| `fix/` | Bug fixes |
+| `docs/` | Documentation only |
+| `test/` | Tests only |
+| `refactor/` | Structural change without behaviour change |
+| `chore/` | Tooling, dependencies, and configuration |
+
+Example: `feat/record-evidence`.
+
+### Commits
+
+Use [Conventional Commits](https://www.conventionalcommits.org): `type: short imperative summary`, for example `fix: reset revision streak after failed recall`. Types match the branch prefixes.
+
+### Pull requests
+
+- One purpose per pull request. Never combine a refactor, a behaviour change, and formatting.
+- The description states what changed, why, how it was tested (commands and results), and which docs were updated.
+- CI must pass before merging.
+- Merge with **squash** and delete the branch afterwards.
+
+## 5. Coding conventions
+
+### Naming
+
+| Item | Convention | Example |
+|---|---|---|
+| Files and folders | kebab-case | `record-evidence.ts` |
+| Functions and variables | camelCase | `deriveTopicStatus` |
+| Types and interfaces | PascalCase | `EvidenceRecord` |
+| Fixed constants | UPPER_SNAKE_CASE | `MAX_NOTE_LENGTH` |
+| Database tables and columns | snake_case | `learner_id` |
+| MCP tools | snake_case verb phrase | `record_evidence` |
+| Topic keys | lowercase dot path | `css.layout.position` |
+
+### Code
+
+- TypeScript `strict`. No `any`; use `unknown` and narrow it.
+- Named exports only; no default exports.
+- One tool per file in `src/mcp/tools/`. One use case per function in `src/services/`.
+- Prefer small, pure functions. Consider splitting a file longer than about 300 lines.
+- Do not create an abstraction until a pattern appears three times.
+- Comments explain *why*, not *what*.
+- `TODO` comments must reference a GitHub issue, for example `// TODO(#12): …`.
+
+### Errors
+
+- Throw `AppError` with a code defined in `domain/`: `VALIDATION`, `NOT_FOUND`, `FORBIDDEN`, `CONFLICT`, or `INTERNAL`.
+- Do not catch an error only to ignore it or rethrow it unchanged.
+- Only `src/mcp/` converts errors into messages for the assistant. Messages must not include stack traces, SQL, or other learners' data.
+
+### Logging
+
+Log the tool name, error code, and timing. Never log learner content or secrets.
+
+## 6. Review checklist
+
+Use this for every pull request, especially AI-generated code:
+
+- [ ] Layer rules respected: no I/O in `domain/`, no SQL outside `db/`, no logic in tools
+- [ ] Every query is scoped by `learnerId`; no learner ID is accepted from tool input
+- [ ] Tool input is validated, with length limits on text
+- [ ] Tests cover the change and would fail without it
+- [ ] Isolation tests are added for new data access
+- [ ] Errors are handled, and messages are safe
+- [ ] No dead code, duplicated logic, or unnecessary abstraction
+- [ ] No new dependency without an approved ADR
+- [ ] Documentation is updated in the same pull request
+- [ ] Reported test results come from actual runs
+
+For large changes, ask a separate AI session that did not write the code to review it against this checklist.
+
+## 7. Common changes
+
+### Add an MCP tool
+
+1. Confirm the tool fits [ARCHITECTURE.md](ARCHITECTURE.md) section 6, or propose an ADR.
+2. Add the service function and its integration tests.
+3. Add `src/mcp/tools/<tool-name>.ts` with a strict zod schema, and register it in `src/mcp/server.ts`.
+4. Add contract tests and security tests.
+5. Update ARCHITECTURE.md section 6 and, if the tutor should use the tool, the playbook.
+
+### Change the database
+
+1. Add a new numbered migration in `migrations/`. Never edit a migration already on `main`.
+2. Give every new table a `learner_id` column with an index.
+3. Update the repository functions and ARCHITECTURE.md section 4.
+4. Add integration tests and security tests.
+5. Apply the migration to staging before production.
+
+### Change the playbook
+
+1. Edit `playbook/` and increase the playbook version.
+2. Re-run the related scenarios in `scenarios/` and record the results in the pull request.
+
+### Add a dependency
+
+Write an ADR that covers the reason, the alternatives (including not adding a dependency), size, maintenance status, and licence. Add the dependency only after approval.
+
+## 8. Documentation
+
+- A change to behaviour, interfaces, data, or process updates the related document in the same pull request.
+- `AGENTS.md` holds rules and links only. Explanations belong in `docs/`.
+- Accepted ADRs are never rewritten. A new ADR supersedes them.
+
+## 9. Refactoring and technical debt
+
+- Refactors are separate pull requests with no behaviour change. Existing tests must pass unchanged.
+- Known shortcuts are recorded as GitHub issues labelled `tech-debt` and referenced from the code where relevant.
+- Review open `tech-debt` issues before starting work in a new feature area.
+
+## 10. Environments and deployment
+
+| Environment | Purpose |
+|---|---|
+| Local | Development and automated tests |
+| Staging (`tutnora-mcp-staging`) | Manual end-to-end testing with ChatGPT and Claude Code |
+| Production (`tutnora-mcp`) | Real learners |
+
+- Deploy only from `main`.
+- Apply migrations and deploy to staging first, run the release scenarios, then release to production.
+- Set secrets per environment with Wrangler secrets. Never commit them.
+
+Deployment commands will be documented when deployment is configured.

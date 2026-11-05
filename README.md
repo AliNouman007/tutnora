@@ -48,10 +48,13 @@ Instructions for ChatGPT and Claude Code will be published after the first stagi
 
 | Document | Purpose |
 |---|---|
+| [Agent instructions](AGENTS.md) | Rules for AI coding agents and contributors |
 | [Architecture](docs/ARCHITECTURE.md) | System design, layers, data model, and tools |
+| [Development](docs/DEVELOPMENT.md) | Setup, workflow, conventions, and Git process |
+| [Testing](docs/TESTING.md) | Test levels, requirements, and quality gates |
+| [Security](SECURITY.md) | Security model and vulnerability reporting |
+| [Privacy](docs/PRIVACY.md) | What data is stored and how to export or delete it |
 | [Decision records](docs/decisions/README.md) | Why key technical decisions were made |
-
-Development, testing, security, and privacy documentation will be added as the project foundation is completed.
 
 ## License
 
