@@ -2,7 +2,7 @@
 
 How Tutnora is tested, and what every change must include.
 
-> Unit test tooling is in place. Integration, contract, and security tests will run on Cloudflare's Workers test pool, which arrives with the first database batch.
+> All automated tests run inside the Cloudflare Workers runtime through `@cloudflare/vitest-plugin`. Before each test, `test/setup.ts` empties the local D1 database and applies all migrations.
 
 ## 1. Principles
 

@@ -2,7 +2,7 @@
 
 How to set up, plan, write, review, and ship changes to Tutnora. Architecture rules are in [ARCHITECTURE.md](ARCHITECTURE.md). Testing rules are in [TESTING.md](TESTING.md).
 
-> Typecheck, lint, format, and unit test tooling is in place. `npm run dev`, `npm run db:migrate:local`, and the `.dev.vars` setup arrive with the first server batch.
+> Typecheck, lint, format, test, and local database tooling is in place. `npm run dev` and the `.dev.vars` setup arrive with the first server batch.
 
 ## 1. Prerequisites
 
@@ -206,6 +206,10 @@ For large changes, ask a separate AI session that did not write the code to revi
 3. Update the repository functions and ARCHITECTURE.md section 4.
 4. Add integration tests and security tests.
 5. Apply the migration to staging before production.
+
+### Change Worker configuration
+
+After changing `wrangler.jsonc` (bindings or compatibility date), run `npm run cf-typegen` and commit the regenerated `worker-configuration.d.ts` in the same pull request.
 
 ### Change the playbook
 
