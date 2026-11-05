@@ -2,7 +2,7 @@
 
 How to set up, plan, write, review, and ship changes to Tutnora. Architecture rules are in [ARCHITECTURE.md](ARCHITECTURE.md). Testing rules are in [TESTING.md](TESTING.md).
 
-> Project tooling (npm scripts, TypeScript, lint, and tests) is introduced in an upcoming batch. Commands in this guide become available then.
+> Typecheck, lint, format, and unit test tooling is in place. `npm run dev`, `npm run db:migrate:local`, and the `.dev.vars` setup arrive with the first server batch.
 
 ## 1. Prerequisites
 

@@ -1,0 +1,27 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      npm-dependencies:
+        patterns:
+          - '*'
+    ignore:
+      # Cloudflare's Workers test pool supports Vitest 4 only.
+      - dependency-name: vitest
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@vitest/*'
+        update-types: ['version-update:semver-major']
+      # typescript-eslint does not yet support TypeScript 7.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      github-actions:
+        patterns:
+          - '*'

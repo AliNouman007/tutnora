@@ -2,7 +2,7 @@
 
 How Tutnora is tested, and what every change must include.
 
-> Test tooling is introduced in an upcoming batch. Commands in this guide become available then.
+> Unit test tooling is in place. Integration, contract, and security tests will run on Cloudflare's Workers test pool, which arrives with the first database batch.
 
 ## 1. Principles
 
