@@ -90,6 +90,8 @@ domain   → nothing outside domain
 
 Every table has a `learner_id` column, and every query filters by it. See [ADR 0004](decisions/0004-github-identity-and-isolation.md).
 
+Foreign keys include `learner_id`, so a record can only reference records that belong to the same learner. Deleting a learner removes all of their goals, topics, evidence, and handoffs. Allowed values and the documented text limits are also enforced with `CHECK` constraints in the database. The schema is defined in `migrations/`.
+
 ### `learners`
 
 | Column | Notes |

@@ -34,7 +34,7 @@ const layerConfigs = Object.entries(FORBIDDEN_LAYERS).map(([layer, forbidden]) =
 });
 
 export default defineConfig(
-  { ignores: ['node_modules/', 'coverage/', '.wrangler/', 'dist/'] },
+  { ignores: ['node_modules/', 'coverage/', '.wrangler/', 'dist/', 'worker-configuration.d.ts'] },
   js.configs.recommended,
   {
     files: ['**/*.ts'],

@@ -10,7 +10,7 @@
   },
   "scripts": {
     "check": "npm run typecheck && npm run lint && npm run format:check && npm run test:coverage",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p test",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -19,9 +19,12 @@
     "test:unit": "vitest run test/unit",
     "test:integration": "vitest run test/integration --passWithNoTests",
     "test:contract": "vitest run test/contract --passWithNoTests",
-    "test:security": "vitest run test/security --passWithNoTests"
+    "test:security": "vitest run test/security --passWithNoTests",
+    "cf-typegen": "wrangler types",
+    "db:migrate:local": "wrangler d1 migrations apply tutnora --local"
   },
   "devDependencies": {
+    "@cloudflare/vitest-plugin": "1.6.0",
     "@eslint/js": "10.0.1",
     "@vitest/coverage-istanbul": "4.1.12",
     "eslint": "10.14.0",
@@ -29,6 +32,7 @@
     "prettier": "3.9.10",
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.1",
-    "vitest": "4.1.12"
+    "vitest": "4.1.12",
+    "wrangler": "4.157.0"
   }
 }

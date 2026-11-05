@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tutnora-mcp",
+  "compatibility_date": "2026-10-01",
+  "d1_databases": [
+    {
+      // Local development and tests only. Staging and production databases are added in milestone M6.
+      "binding": "DB",
+      "database_name": "tutnora",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations",
+    },
+  ],
+}
