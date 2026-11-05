@@ -29,11 +29,13 @@ Your task assignment states your role. If it does not, ask before making changes
 - Apply provided file contents exactly. Do not redesign, refactor, reformat, or improve them.
 - If a file cannot be applied or a command fails, stop and report. Do not fix it yourself unless the owner explicitly allows it.
 - Report every batch in the format below.
+- In a pull request description, fill in only the marked result placeholders with observed results. Do not rewrite anything else.
 - Never report a check as passing unless you ran it and saw it pass.
 
 ### Authoring agent rules
 
 - Provide complete files with full paths, not partial snippets.
+- Draft the full pull request description using `.github/pull_request_template.md` (rules: `docs/DEVELOPMENT.md`, section 4).
 - Deliver small batches, each with a goal, commands, expected results, and acceptance criteria.
 - Include tests with every behaviour change.
 - Label work "Not yet executed" until real results are reported.
@@ -68,6 +70,7 @@ Full rules: `docs/ARCHITECTURE.md` section 3.
 - [ ] New or changed behaviour has tests that would fail without the change
 - [ ] New or changed data access has isolation tests in `test/security/`
 - [ ] Related documentation is updated in the same change
+- [ ] The pull request description is complete and follows `docs/DEVELOPMENT.md`, section 4
 - [ ] The report lists the exact commands run and their results
 
 ## Commands
