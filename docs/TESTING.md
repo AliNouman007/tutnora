@@ -87,6 +87,8 @@ Minimum release scenarios for the MVP:
 6. A second learner cannot see the first learner's data
 7. Export returns all data; deletion removes all data
 
+Scenarios 1 to 5 are also covered without an assistant by the automated test `test/integration/learning-flow.test.ts`. The manual runs check the assistant's behaviour on top of that flow.
+
 ## 8. Playbook evaluation
 
 The playbook cannot be unit tested. Its quality is checked through scenarios focused on tutor behaviour: a definition before the explanation, appropriate depth, the hint limit, no repeated onboarding questions, and correct use of tools. Every playbook change re-runs the affected scenarios.
