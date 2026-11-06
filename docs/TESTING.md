@@ -17,7 +17,7 @@ How Tutnora is tested, and what every change must include.
 |---|---|---|---|
 | Unit | `test/unit/` | Pure functions in `domain/`: status derivation, revision intervals, warm-up selection, and limits | `npm run test:unit` |
 | Integration | `test/integration/` | Services and repositories against a real local D1 database | `npm run test:integration` |
-| Contract | `test/contract/` | Each MCP tool's input schema, output shape, and error mapping | `npm run test:contract` |
+| Contract | `test/contract/` | Each MCP tool's input schema, output shape, and error mapping, called through the official MCP client in process (ADR 0006) | `npm run test:contract` |
 | Security | `test/security/` | Authentication and data isolation between learners | `npm run test:security` |
 | End-to-end | `scenarios/` | Real flows in ChatGPT and Claude Code against staging; run manually | — |
 
