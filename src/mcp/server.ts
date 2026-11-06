@@ -1,5 +1,8 @@
 import { createMcpHandler, McpServer } from '@modelcontextprotocol/server';
 import type { ToolContext } from './context';
+import { registerEndSession } from './tools/end-session';
+import { registerGetProgress } from './tools/get-progress';
+import { registerRecordEvidence } from './tools/record-evidence';
 import { registerSaveGoalRoadmap } from './tools/save-goal-roadmap';
 import { registerStartSession } from './tools/start-session';
 import { registerUpdatePreferences } from './tools/update-preferences';
@@ -12,6 +15,9 @@ export function createTutnoraServer(context: ToolContext): McpServer {
   registerStartSession(server, context);
   registerSaveGoalRoadmap(server, context);
   registerUpdatePreferences(server, context);
+  registerRecordEvidence(server, context);
+  registerEndSession(server, context);
+  registerGetProgress(server, context);
   return server;
 }
 
