@@ -47,6 +47,8 @@ Exact package versions are pinned in `package.json` when tooling is introduced. 
 
 The Worker is stateless. Each MCP request gets a fresh server built for the signed-in learner. All learning state lives in D1; OAuth grants and tokens live in a KV namespace (`OAUTH_KV`).
 
+Routes: `/mcp` serves the tools and requires a bearer token; `/authorize` (consent page) and `/callback` (return from GitHub) are Tutnora's sign-in pages in `src/auth/`; `/oauth/token`, `/oauth/register`, and the `/.well-known/` discovery documents are served by the OAuth library.
+
 ## 3. Layers and dependency rules
 
 ```text

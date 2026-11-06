@@ -7,7 +7,14 @@ export default defineConfig({
       wrangler: { configPath: './wrangler.jsonc' },
       miniflare: {
         // Test-only binding, applied before each test by test/setup.ts.
-        bindings: { TEST_MIGRATIONS: await readD1Migrations('migrations') },
+        bindings: {
+          TEST_MIGRATIONS: await readD1Migrations('migrations'),
+          // Test-only sign-in settings. Tests never use real GitHub credentials.
+          GITHUB_CLIENT_ID: 'test-client-id',
+          GITHUB_CLIENT_SECRET: 'test-client-secret',
+          ALLOWED_GITHUB_IDS: '1001',
+          PUBLIC_URL: 'http://localhost',
+        },
       },
     })),
   ],

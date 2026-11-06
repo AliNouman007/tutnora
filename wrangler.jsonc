@@ -1,7 +1,16 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "tutnora-mcp",
+  "main": "src/index.ts",
   "compatibility_date": "2026-10-01",
+  // Needed for Client ID Metadata Documents: blocks sign-in metadata fetches to private addresses.
+  "compatibility_flags": ["global_fetch_strictly_public"],
+  "vars": {
+    // Hostnames allowed in Host and Origin headers for /mcp. Staging and production add theirs in M6.
+    "ALLOWED_HOSTS": "localhost,127.0.0.1",
+    // The address apps use to reach Tutnora. Tokens are issued for PUBLIC_URL/mcp only.
+    "PUBLIC_URL": "http://localhost:8787",
+  },
   "d1_databases": [
     {
       // Local development and tests only. Staging and production databases are added in milestone M6.

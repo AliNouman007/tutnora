@@ -57,7 +57,7 @@ export async function connectAs(
   };
 }
 
-function readOutcome(result: unknown): ToolCallOutcome {
+export function readOutcome(result: unknown): ToolCallOutcome {
   if (typeof result !== 'object' || result === null || !('content' in result)) {
     throw new Error('Unexpected tool result shape.');
   }
