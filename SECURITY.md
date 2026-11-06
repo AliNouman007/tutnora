@@ -26,6 +26,9 @@ Out of scope: vulnerabilities in ChatGPT, Claude, GitHub, or Cloudflare themselv
 - The server issues its own tokens to assistants. GitHub tokens are never passed to assistants.
 - Tutnora does not request access to learners' email addresses or repositories.
 - During the MVP, only GitHub accounts listed in `ALLOWED_GITHUB_IDS` can sign in.
+- Before signing in, the learner sees Tutnora's own consent page, which names the requesting app and where access will be returned, and must choose Allow.
+- Sign-in state is single-use, expires after 10 minutes, and is bound to HTTP-only, same-site cookies.
+- `/mcp` rejects requests whose `Host` or browser `Origin` is not listed in `ALLOWED_HOSTS`.
 
 ### Authorization and data isolation
 

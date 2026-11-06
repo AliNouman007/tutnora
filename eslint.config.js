@@ -62,7 +62,7 @@ export default defineConfig(
     },
   },
   {
-    files: ['*.config.ts'],
+    files: ['*.config.ts', 'src/index.ts'],
     rules: { 'no-restricted-exports': 'off' },
   },
   ...layerConfigs,
