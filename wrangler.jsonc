@@ -11,4 +11,11 @@
       "migrations_dir": "migrations",
     },
   ],
+  "kv_namespaces": [
+    {
+      // OAuth grants and tokens, and short-lived sign-in state (ADR 0005). Local only until milestone M6.
+      "binding": "OAUTH_KV",
+      "id": "00000000000000000000000000000000",
+    },
+  ],
 }
