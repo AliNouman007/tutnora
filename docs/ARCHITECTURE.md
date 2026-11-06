@@ -35,7 +35,7 @@ The AI reports *what happened* (evidence). The server decides *what it means* (s
 |---|---|
 | Language | TypeScript, `strict` mode |
 | Runtime | Cloudflare Workers |
-| MCP transport | Cloudflare Agents SDK (`McpAgent`) with the official MCP TypeScript SDK |
+| MCP transport | Official MCP TypeScript SDK v2 (`@modelcontextprotocol/server`), stateless `createMcpHandler` ([ADR 0005](decisions/0005-stateless-mcp-sdk-v2.md)) |
 | Authentication | `@cloudflare/workers-oauth-provider`, with GitHub as the identity provider |
 | Database | Cloudflare D1 (SQLite); raw SQL with prepared statements; no ORM |
 | Validation | zod, at the tool boundary only |
@@ -44,6 +44,8 @@ The AI reports *what happened* (evidence). The server decides *what it means* (s
 | Package manager | npm |
 
 Exact package versions are pinned in `package.json` when tooling is introduced. Adding a runtime dependency requires an ADR.
+
+The Worker is stateless. Each MCP request gets a fresh server built for the signed-in learner. All learning state lives in D1; OAuth grants and tokens live in a KV namespace (`OAUTH_KV`).
 
 ## 3. Layers and dependency rules
 

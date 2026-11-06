@@ -2,6 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-11-05
+- Superseded in part by: [0005](0005-stateless-mcp-sdk-v2.md) (MCP transport)
 
 ## Context
 

@@ -23,10 +23,11 @@ Write an ADR before:
 
 | ADR | Title | Status |
 |---|---|---|
-| [0001](0001-remote-mcp-on-cloudflare.md) | Remote MCP server on Cloudflare | Accepted |
+| [0001](0001-remote-mcp-on-cloudflare.md) | Remote MCP server on Cloudflare | Accepted; MCP transport superseded by 0005 |
 | [0002](0002-playbook-served-by-server.md) | Playbook served by the server | Accepted |
 | [0003](0003-status-derived-from-evidence.md) | Progress status derived from evidence | Accepted |
 | [0004](0004-github-identity-and-isolation.md) | GitHub identity and per-learner data isolation | Accepted |
+| [0005](0005-stateless-mcp-sdk-v2.md) | Stateless MCP server with the MCP TypeScript SDK v2 | Accepted |
 
 ## Template
 
