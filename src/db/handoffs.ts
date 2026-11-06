@@ -71,3 +71,19 @@ export async function getLatestHandoff(
     .first<HandoffRow>();
   return row === null ? null : toHandoff(row);
 }
+
+/** Returns the learner's most recently saved handoff across all goals, or null if there is none. */
+export async function getLatestLearnerHandoff(
+  db: D1Database,
+  learnerId: string,
+): Promise<Handoff | null> {
+  const row = await db
+    .prepare(
+      `SELECT * FROM handoffs WHERE learner_id = ?
+       ORDER BY created_at DESC, rowid DESC
+       LIMIT 1`,
+    )
+    .bind(learnerId)
+    .first<HandoffRow>();
+  return row === null ? null : toHandoff(row);
+}
