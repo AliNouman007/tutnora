@@ -130,4 +130,15 @@ describe('sign-in and access to /mcp', () => {
 
     expect([401, 403]).toContain(response.status);
   });
+
+  it('offers Dynamic Client Registration and does not advertise CIMD', async () => {
+    const call = testWorker(fakeGithub(SARA));
+
+    const response = await call('/.well-known/oauth-authorization-server');
+    const metadata = await response.json<Record<string, unknown>>();
+
+    expect(response.status).toBe(200);
+    expect(metadata.registration_endpoint).toBe('http://localhost/oauth/register');
+    expect(metadata.client_id_metadata_document_supported).not.toBe(true);
+  });
 });

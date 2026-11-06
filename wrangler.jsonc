@@ -3,7 +3,7 @@
   "name": "tutnora-mcp",
   "main": "src/index.ts",
   "compatibility_date": "2026-10-01",
-  // Needed for Client ID Metadata Documents: blocks sign-in metadata fetches to private addresses.
+  // Blocks outbound fetches to private network addresses (SSRF protection).
   "compatibility_flags": ["global_fetch_strictly_public"],
   "vars": {
     // Hostnames allowed in Host and Origin headers for /mcp. Staging and production add theirs in M6.
