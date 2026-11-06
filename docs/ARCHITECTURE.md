@@ -81,7 +81,7 @@ domain   → nothing outside domain
 
 ### Rules that apply everywhere
 
-- **Time:** domain functions receive `now` as a parameter. Only services read the clock. Timestamps are stored as UTC ISO 8601 strings.
+- **Time:** the tool layer reads the clock once per call and passes `now` down. Services, repositories, and domain functions never read the clock themselves. Timestamps are stored as UTC ISO 8601 strings.
 - **Identity:** the learner ID comes only from the authenticated session. No tool accepts a learner ID as input.
 - **Validation:** untrusted input is validated once, at the tool boundary. Inner layers trust their typed inputs.
 - **Errors:** inner layers throw `AppError` with a code. The `mcp/` layer converts errors into safe messages.
@@ -186,12 +186,15 @@ A session warm-up includes at most three due topics, ordered by `needs_revision`
 |---|---|---|
 | `start_session` | Returns the learner profile, goals, the focus goal's latest handoff, due revision topics, and the playbook version; creates the learner profile on first use | Learner (first use only) |
 | `get_playbook` | Returns one playbook section | — |
+| `update_preferences` | Saves the learner's language, hint limit, and session length; only the given values change | Learner |
 | `save_goal_roadmap` | Creates a goal, or adds and updates topics in an existing goal | Goal, topics |
 | `record_evidence` | Records one assessment result for one topic; returns the derived status and next review | Evidence |
 | `end_session` | Saves a handoff for a goal | Handoff |
 | `get_progress` | Returns status counts and per-topic status for a goal | — |
 | `export_my_data` | Returns all of the learner's data as JSON | — |
 | `delete_my_data` | Permanently deletes all of the learner's data; requires the exact confirmation value `DELETE MY TUTNORA DATA` | Deletes all learner data |
+
+`start_session` focuses on the goal the assistant asks for; otherwise on the goal with the most recent handoff; otherwise on the newest active goal. It reports whether this is the learner's first session, so the tutor knows to run onboarding. `save_goal_roadmap` validates topics before saving anything: keys must be valid and unique within the save, every parent must exist in the roadmap, and the topic tree must not contain cycles.
 
 Each tool calls exactly one service function. Input schemas, output shapes, and error codes live in `src/mcp/tools/` and are covered by contract tests.
 
