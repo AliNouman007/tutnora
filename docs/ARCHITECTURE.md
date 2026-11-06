@@ -206,7 +206,7 @@ The server's MCP `instructions` tell the assistant to call `start_session` first
 2. The tool handler validates the input with zod: goal, topic key, kind, support, result, note length, and optional request ID.
 3. The handler calls the service with the learner ID, the validated input, and the current time.
 4. The service loads the goal and topic **scoped to the learner**. If either is missing, it throws `AppError` with code `NOT_FOUND`.
-5. If the request ID was already recorded for this learner, the service returns the existing result; a retried call does not create duplicate evidence.
+5. If the request ID was already recorded for this learner, the service returns the existing result; a retried call does not create duplicate evidence. If the same request ID was used for a different topic, the service returns `CONFLICT`.
 6. The service inserts the evidence, loads the topic's evidence history, and calls the domain function that derives status and next review.
 7. The handler returns the derived result. Any error is mapped to a safe message.
 
