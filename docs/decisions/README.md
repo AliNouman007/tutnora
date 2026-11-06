@@ -28,6 +28,7 @@ Write an ADR before:
 | [0003](0003-status-derived-from-evidence.md) | Progress status derived from evidence | Accepted |
 | [0004](0004-github-identity-and-isolation.md) | GitHub identity and per-learner data isolation | Accepted |
 | [0005](0005-stateless-mcp-sdk-v2.md) | Stateless MCP server with the MCP TypeScript SDK v2 | Accepted |
+| [0006](0006-mcp-client-for-tests.md) | Official MCP client for tool tests | Accepted |
 
 ## Template
 

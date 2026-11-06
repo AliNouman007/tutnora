@@ -223,7 +223,8 @@ The playbook is bundled into the Worker at build time and carries a version stri
 - **Error codes:** `VALIDATION`, `NOT_FOUND`, `FORBIDDEN`, `CONFLICT`, `INTERNAL`.
 - Messages returned to the assistant never include stack traces, SQL, or another learner's data.
 - **Logs** record the tool name, error code, and timing. They never record notes, summaries, or other learner content.
-- **Text limits** are defined once in `domain/` and enforced at the tool boundary.
+- **Limits** are defined once in `domain/limits.ts` and enforced at the tool boundary: goal title 200, target level 100, topic key 120, topic title 200, language 50 and source URL 2,048 characters (`http` or `https` only); at most 200 topics per save and 10 sources per topic; a hint limit of 0 to 10 and a session length of 5 to 240 minutes. Tool inputs with unknown fields are rejected.
+- **Unexpected errors** inside a tool are logged with the tool name only and reported to the assistant with a generic `INTERNAL` message, so database details never reach it.
 
 ## 10. Environments
 
