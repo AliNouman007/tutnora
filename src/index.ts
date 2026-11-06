@@ -58,7 +58,9 @@ export function createWorker(
     authorizeEndpoint: '/authorize',
     tokenEndpoint: '/oauth/token',
     clientRegistrationEndpoint: '/oauth/register',
-    clientIdMetadataDocumentEnabled: true,
+    // Off: chatgpt.com refuses server-side fetches of Codex's client metadata (HTTP 403), so
+    // clients register through Dynamic Client Registration instead. Revisit in milestone M6.
+    clientIdMetadataDocumentEnabled: false,
     // RFC 9728 metadata: tells apps that /mcp is protected and where to sign in.
     // Tokens are issued for this exact resource URL.
     resourceMetadata: {
